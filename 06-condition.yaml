@@ -1,5 +1,5 @@
 - name: check the roboshop-user exist or not
-  hosts: localhost
+  hosts: mongodb
   tasks:
   - name: check user id
     ansible.builtin.command: id roboshop
