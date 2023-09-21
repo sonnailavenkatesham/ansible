@@ -1,5 +1,5 @@
 - name: ping the node1
   hosts: mongodb
-  - tasks:
-    name: check the node is active or not
+  tasks:
+  - name: check the node is active or not
     ansible.builtin.ping:
