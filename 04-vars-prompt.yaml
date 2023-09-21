@@ -7,7 +7,7 @@
   - name: PASSWORD
     prompt: Please enter password
     private: true
-  tasks: getting the values from prompt line
+  tasks:
   - name: Printing the prompt values
     ansible.builtin.debug:
-    msg: "The username is : {{USERNAME}, password is: {{PASSWORD}}}"
+      msg: "The username is : {{USERNAME}, password is: {{PASSWORD}}}"
