@@ -11,4 +11,4 @@
   - name: Printing the prompt values
     ansible.builtin.debug:
       msg: "The Username: {{USERNAME}}, Password: {{PASSWORD}}"
-    when: ({{PASSWORD}}=="Venkat@1095")
+    when: ('{{PASSWORD}}' == "Venkat@1095")
