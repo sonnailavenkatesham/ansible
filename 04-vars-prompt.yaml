@@ -10,4 +10,4 @@
   tasks: getting the values from prompt line
   - name: Printing the prompt values
     ansible.builtin.debug:
-    msg: "The username is : {{USERNAME} ans password is: {{PASSWORD}}}"
+    msg: "The username is : {{USERNAME}, password is: {{PASSWORD}}}"
