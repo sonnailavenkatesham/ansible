@@ -10,3 +10,7 @@
     ansible.builtin.service:
       name: nginx
       state: restarted
+  - name: Unintall nginx
+    ansible.builtin.yum:
+      name: nginx
+      state: absent
