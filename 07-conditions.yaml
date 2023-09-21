@@ -7,8 +7,8 @@
   - name: PASSWORD
     prompt: Please enter password
     private: true
-    when: "{{PASSWORD}}==Venkat@1095"
   tasks:
   - name: Printing the prompt values
     ansible.builtin.debug:
       msg: "The Username: {{USERNAME}}, Password: {{PASSWORD}}"
+    when: "{{PASSWORD}}==Venkat@1095"
