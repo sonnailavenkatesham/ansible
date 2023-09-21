@@ -1,0 +1,12 @@
+-name: Check the status
+  hosts: localhost
+  vars: 
+    NAME: DevOps
+  tasks:
+    -name: if name is eaual to DevOps is true
+     ansible.builtin.debug:
+     msg: "condition is ture DevOps is = {{NAME}}"
+     when: NAME == DevOps
+     
+
+ 
