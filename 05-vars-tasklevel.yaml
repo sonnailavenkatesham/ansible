@@ -1,0 +1,15 @@
+- name: vars from task leves
+  hosts: localhost
+  vars:
+  - salary: 75000
+    job: DevOps
+  tasks:
+  - name: printing variable in intial level
+    ansible.builtin.debug:
+      msg: "The looking for job: {{job}} and salary: {{salary}}"
+  - name: taking variables from task level
+    vars:
+    - salary: 80000
+    ansible.builtin.debug:
+      msg: "The looking for job: {{job}} and salary: {{salary}}"
+  
