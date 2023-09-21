@@ -3,7 +3,7 @@
   tasks:
   - name: print the first value
     ansible.builtin.debug:
-     msg: "The first value is: "
+     message: "The first value is: "
   - name: print the second value
     ansible.builtin.debug:
-      msg: "The secong value is: "
+      message: "The secong value is: "
