@@ -6,8 +6,9 @@
     ansible.builtin.yum:
       name: "{{item}}"
       state: installed
+  - name: print the status
     ansible.builtin.debug:
-      msg: "Installatin of {{item}} Success"
+      msg: "Installatin..Success.."
     loop:
     - nginx
     - postfix
