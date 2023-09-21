@@ -3,9 +3,6 @@
   vars:
     value1: 20
     value2: 30
-    NAME: Suresh
-    AGE: 26
-    GENDER: male
   tasks:
   - name: print the first value
     ansible.builtin.debug:
