@@ -1,9 +1,12 @@
 - name: variable in yaml
   hosts: mongodb
+  vars:
+    value1: 20
+    value2: 30
   tasks:
   - name: print the first value
     ansible.builtin.debug:
-     msg: "The first value is: "
+     msg: "The first value is: {{value1}} "
   - name: print the second value
     ansible.builtin.debug:
-      msg: "The secong value is: "
+      msg: "The secong value is: {{value2}}"
