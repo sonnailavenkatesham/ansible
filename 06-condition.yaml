@@ -4,6 +4,7 @@
   - name: check user id
     ansible.builtin.command: id roboshop
     register: output
+  - name: print userID
     ansible.builtin.debug:
       msg: "The roboshop userID: {{output}}"
   
