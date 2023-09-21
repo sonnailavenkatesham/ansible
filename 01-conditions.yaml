@@ -1,5 +1,11 @@
-- name: ping the node1
+- name: install and run nginx
   hosts: mongodb
   tasks:
-  - name: check the node is active or not
-    ansible.builtin.ping:
+  - name: inatall nginx
+    ansible.builtin.yum:
+      name: nginx
+      state: installed
+  - name: run nginx
+    ansible.builtin.service:
+      name: nginx
+      state: restarted
