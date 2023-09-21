@@ -12,6 +12,6 @@
     ansible.builtin.debug:
       msg: "The Username: {{USERNAME}}, Password: {{PASSWORD}}"
     when: ('{{PASSWORD}}' == "Venkat@1095")
-    ignore_error: true
+    ignore_errors: true
     ansible.builtin.debug:
       msg: "Please enter correct password/username"
