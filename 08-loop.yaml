@@ -9,7 +9,7 @@
   - name: print the status
     ansible.builtin.debug:
       msg: "Installatin..Success.."
-    loop:
-    - nginx
-    - postfix
-    - mysql
+      loop:
+      - nginx
+      - postfix
+      - mysql
