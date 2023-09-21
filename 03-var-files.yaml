@@ -1,7 +1,7 @@
 - name: retriving variables from onther files
   hosts: localhost
   vars_files:
-    variables.yaml
+    01-variables.yaml
   tasks:
     - name: printing the variables from other files
       ansible.builtin.debug:
