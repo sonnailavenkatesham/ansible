@@ -17,7 +17,12 @@
     ansible.builtin.file:
       path: /usr/share/nginx/html
       state: absent
-  
+
+  - name: Recursively remove directory
+    ansible.builtin.file:
+      path: /usr/share/nginx/html
+      state: directory
+      
   - name: download web artifact
     ansible.builtin.get_url:
       url: https://roboshop-builds.s3.amazonaws.com/web.zip
