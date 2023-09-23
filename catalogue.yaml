@@ -68,7 +68,7 @@
       enabled: true
       state: started
   
-  - name: install mongodb-org-shell
+  - name: install mongodb
     ansible.builtin.yum:
       name: mongodb-org-shell
       state: installed
