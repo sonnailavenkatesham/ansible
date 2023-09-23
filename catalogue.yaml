@@ -13,3 +13,4 @@
   - name: check user roboshop
     ansible.builtin.command: user roboshop
     register: output
+    ignore_errors: yes
