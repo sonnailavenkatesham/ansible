@@ -4,8 +4,11 @@
   tasks:
   - name: install NPM
     ansible.builtin.shell: "curl -sL https://rpm.nodesource.com/setup_lts.x | bash"
-    
+
   - name: install nodejs
     ansible.builtin.yum:
       name: nodejs
       state: installed
+  
+  - name: check user roboshop
+    ansible.builtin.command: user roboshop
