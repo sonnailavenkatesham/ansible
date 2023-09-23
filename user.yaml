@@ -1,0 +1,84 @@
+- name: install user component
+  hosts: user
+  become: yes
+  tasks: 
+  - name: Setup NodeJS repos.
+    ansible.builtin.command: "curl -sL https://rpm.nodesource.com/setup_lts.x | bash"
+
+  - name: Install NodeJS
+    ansible.builtin.yum:
+      name: nodejs
+      state: installed
+
+  - name: check user is already exists or not
+    ansible.builtin.command: id roboshop
+    register: output
+    ignore_errors: yes
+
+  - name: print the output
+    ansible.builtin.debug:
+      msg: "Output: {{output}}"
+  
+  - when: output.rc != 0
+    name: add the user roboshop
+    ansible.builtin.user:
+      name: roboshop
+  
+  - name: check the directory already exists or not
+    nsible.builtin.stat:
+      path: /app
+    register: directory
+    ignore_errors: yes
+
+  - name: print the output of stat
+    ansible.builtin.debug:
+      msg: "output: {{directory}}"
+  
+  - when: directory.stat.exists == False
+    name: create /app directory
+    ansible.builtin.file:
+      path: /app
+      state: directory
+  
+  - name: download user artifact
+    ansible.builtin.get_url:
+      url: https://roboshop-builds.s3.amazonaws.com/user.zip
+      dest: /tmp
+  
+  - name: unzip the artifact
+    ansible.builtin.unarchive:
+      src: tmp/user.zip
+      dest: /app
+    remote_src: yes
+
+  - name: install dependncies
+    ansible.builtin.command: npm install 
+
+  - name: copy the Setup SystemD User Service
+    ansible.builtin.copy:
+      src: user.service
+      dest: /etc/systemd/system/user.service
+  
+  - name: daemon-reload
+    ansible.builtin.systemd:
+    daemon_reload: true
+  
+  - name: enable and start user
+    ansible.builtin.service:
+      name: user
+      enabled: true
+      state: started
+  
+  - name: copy mongo repo
+    ansible.builtin.copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo 
+  
+  - name: install mongodb-org-shell
+    ansible.builtin.yum:
+     name: mongodb-org-shell
+     state: installed
+
+  - name: Load Schema
+    ansible.builtin.command: mongo --host mongo.venkateshamsonnalia143.online < /app/schema/user.js
+      
