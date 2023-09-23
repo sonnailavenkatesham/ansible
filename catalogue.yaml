@@ -25,7 +25,10 @@
       path: /app
     register: directory
     ignore_errors: yes
-
+  - name: Restart monogdb
+    ansible.builtin.service:
+      name: mongod
+      state: restarted
   - name: print the output of stat
     ansible.builtin.debug:
       msg: "output: {{directory}}"
@@ -35,5 +38,35 @@
     ansible.builtin.file:
       path: /app
       state: directory
+  
+  - name: install catalogue artifact
+    ansible.builtin.get_url:
+      url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
+      dest: /tmp
+  
+  - name: Unarchive a file that is already on the remote machine i.e zipfile
+    ansible.builtin.unarchive:
+      src: /tmp/catalogue.zip
+      dest: /app
+      remote_src: yes
+
+  - name: install npm dependencies
+    ansible.builtin.command: npm install
+
+  - name: copy the catalogue conf
+    ansible.builtin.copy:
+      src: catalogue.service
+      dest: /etc/systemd/system/catalogue.service
+  - name: Reload service httpd, in all cases
+    ansible.builtin.systemd:
+      name: catalogue
+      state: reloaded
+
+  - name: Restart catalogue
+    ansible.builtin.service:
+      name: catalogue
+      enabled: true
+      state: started
+
     
     
