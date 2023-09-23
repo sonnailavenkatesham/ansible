@@ -26,6 +26,6 @@
     register: directory
 
   - name: print the output of stat
-    andible.builtin.debug:
+    ansible.builtin.debug:
       msg: "output: {{directory}}"
     
