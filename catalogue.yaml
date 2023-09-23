@@ -25,9 +25,10 @@
       path: /app
     register: directory
     ignore_errors: yes
-  - name: Restart monogdb
+
+  - name: Restart catalogue
     ansible.builtin.service:
-      name: mongod
+      name: catalogue
       state: restarted
   - name: print the output of stat
     ansible.builtin.debug:
