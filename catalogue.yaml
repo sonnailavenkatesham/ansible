@@ -9,13 +9,3 @@
     ansible.builtin.yum:
       name: nodejs
       state: installed
-
-  - name: add the user roboshop if not user exist
-    ansible.builtin.command: user roboshop
-      registor: output # output is variable name
-    ignore_errors: true
-  
-  - when: output.rc != 0 
-    name: add the user roboshop
-    ansible.builtin.user:
-      name: roboshop
