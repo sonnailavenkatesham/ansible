@@ -19,3 +19,13 @@
     name: add user name called rooboshop
     ansible.builtin.user:
       name: roboshop
+
+  - name: check /app directory is exists ir not
+    ansible.builtin.stat:
+      path: /app
+    register: directory
+
+  - name: print the output of stat
+    andible.builtin.debug:
+      msg: "output: {{directory}}"
+    
