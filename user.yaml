@@ -25,7 +25,7 @@
       name: roboshop
   
   - name: check the directory already exists or not
-    nsible.builtin.stat:
+    ansible.builtin.stat:
       path: /app
     register: directory
     ignore_errors: yes
