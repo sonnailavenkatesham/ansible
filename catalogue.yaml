@@ -49,7 +49,8 @@
 
   - name: install npm dependencies
     ansible.builtin.command: npm install
-    remote_src: yes
+    args:
+      chdir: /app
 
   - name: copy the catalogue conf
     ansible.builtin.copy:
