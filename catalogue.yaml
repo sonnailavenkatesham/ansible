@@ -28,4 +28,11 @@
   - name: print the output of stat
     ansible.builtin.debug:
       msg: "output: {{directory}}"
+  
+  - when: directory.stat.exists == False
+    name: create /app directory
+    ansible.builtin.file:
+      path: /app
+      state: directory
+    
     
