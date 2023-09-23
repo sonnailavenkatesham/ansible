@@ -57,6 +57,7 @@
     ansible.builtin.copy:
       src: catalogue.service
       dest: /etc/systemd/system/catalogue.service
+
   - name: Reload service httpd, in all cases
     ansible.builtin.systemd:
       name: catalogue
@@ -67,6 +68,14 @@
       name: catalogue
       enabled: true
       state: started
+  
+  - name: install mongodb-org-shell
+    ansible.builtin.yum:
+      name: mongodb-org-shell
+      state: installed
+
+  - name: host mongodb
+    ansible.builtin.command: mongo --host mongodb.venkateshamsonnalia143.online < /app/schema/catalogue.js
 
     
     
