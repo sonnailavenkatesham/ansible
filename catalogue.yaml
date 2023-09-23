@@ -60,7 +60,7 @@
   - name: Reload service httpd, in all cases
     ansible.builtin.systemd:
       name: catalogue
-      state: reloaded
+      daemon-reload: true
 
   - name: Restart catalogue
     ansible.builtin.service:
