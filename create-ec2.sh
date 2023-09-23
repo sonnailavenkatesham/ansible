@@ -12,7 +12,7 @@ do
 
     echo " Name:$i and IP:$IP_ADDRESS "
     aws route53 change-resource-record-sets --hosted-zone-id Z0997824248HW2XYA9N5U --change-batch '{
-            "Comment": "CREATE/DELETE/UPSERT a record ",
+            "Comment": "CREATE a record ",
             "Changes": [{
             "Action": "CREATE",
                         "ResourceRecordSet": {
