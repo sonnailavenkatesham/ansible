@@ -1,30 +1,26 @@
 - name: install user component
   hosts: user
   become: yes
-  tasks: 
-  - name: Setup NodeJS repos.
-    ansible.builtin.command: "curl -sL https://rpm.nodesource.com/setup_lts.x | bash"
+  tasks:
+  - name: install NPM
+    ansible.builtin.shell: "curl -sL https://rpm.nodesource.com/setup_lts.x | bash"
 
-  - name: Install NodeJS
+  - name: install nodejs
     ansible.builtin.yum:
       name: nodejs
       state: installed
-
-  - name: check user is already exists or not
+  
+  - name: check user roboshop exist or not
     ansible.builtin.command: id roboshop
     register: output
     ignore_errors: yes
 
-  - name: print the output
-    ansible.builtin.debug:
-      msg: "Output: {{output}}"
-  
   - when: output.rc != 0
-    name: add the user roboshop
+    name: add user name called rooboshop
     ansible.builtin.user:
       name: roboshop
-  
-  - name: check the directory already exists or not
+
+  - name: check /app directory is exists ir not
     ansible.builtin.stat:
       path: /app
     register: directory
@@ -40,45 +36,50 @@
       path: /app
       state: directory
   
-  - name: download user artifact
+  - name: install user artifact
     ansible.builtin.get_url:
       url: https://roboshop-builds.s3.amazonaws.com/user.zip
       dest: /tmp
   
-  - name: unzip the artifact
+  - name: Unarchive a file that is already on the remote machine i.e zipfile
     ansible.builtin.unarchive:
-      src: tmp/user.zip
+      src: /tmp/user.zip
       dest: /app
       remote_src: yes
 
-  - name: install dependncies
-    ansible.builtin.command: npm install 
+  - name: install npm dependencies
+    ansible.builtin.command: npm install
+    args:
+      chdir: /app
 
-  - name: copy the Setup SystemD User Service
+  - name: copy the user conf
     ansible.builtin.copy:
       src: user.service
       dest: /etc/systemd/system/user.service
-  
-  - name: daemon-reload
+
+  - name: Reload service httpd, in all cases
     ansible.builtin.systemd:
-      daemon_reload: true
-  
-  - name: enable and start user
+      name: user
+      daemon-reload: true
+
+  - name: Restart user
     ansible.builtin.service:
       name: user
       enabled: true
       state: started
   
-  - name: copy mongo repo
+  - name: copy mongo.repo
     ansible.builtin.copy:
       src: mongo.repo
-      dest: /etc/yum.repos.d/mongo.repo 
-  
-  - name: install mongodb-org-shell
-    ansible.builtin.yum:
-     name: mongodb-org-shell
-     state: installed
-
-  - name: Load Schema
-    ansible.builtin.command: mongo --host mongo.venkateshamsonnalia143.online < /app/schema/user.js
+      dest: /etc/yum.repos.d/mongo.repo
       
+  - name: install mongodb
+    ansible.builtin.yum:
+      name: mongodb-org-shell
+      state: installed
+
+  - name: host mongodb
+    ansible.builtin.command: mongo --host mongodb.venkateshamsonnalia143.online < /app/schema/user.js
+
+    
+    
