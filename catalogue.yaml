@@ -11,6 +11,6 @@
       state: installed
   
   - name: check user roboshop
-    ansible.builtin.command: user roboshop
+    ansible.builtin.command: id roboshop
     register: output
     ignore_errors: yes
