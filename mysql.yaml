@@ -1,0 +1,7 @@
+- name: install mysql component
+  hosts: mysql
+  become: yes
+  tasks:
+  - name: modules disable
+    ansible.builtin.command: yum module disable mysql -y 
+    
