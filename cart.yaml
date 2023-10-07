@@ -49,6 +49,10 @@
 
   - name: NPM setup
     ansible.builtin.command: npm install
+      args:
+        chdir: /app
+
+
 
   - name: copying cart services
     ansible.builtin.copy:
