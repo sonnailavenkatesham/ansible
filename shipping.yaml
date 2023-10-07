@@ -58,6 +58,7 @@
     ansible.builtin.systemd:
       name: shipping
       daemon_reload: true
+      state: started
 
   - name: install mysql
     ansible.builtin.yum:
