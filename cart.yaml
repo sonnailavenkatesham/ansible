@@ -47,7 +47,7 @@
     args:
         chdir: /app
 
-   - name: copying cart services
+  - name: copying cart services
     ansible.builtin.copy:
       src: cart.service
       dest: /etc/systemd/system/cart.service
