@@ -10,4 +10,16 @@
       src: mysql.repo
       dest: /etc/yum.repos.d/mysql.repo
 
+  - name: install mysql-community-server
+    ansible.builtin.yum:
+      name: mysql-community-server -y
+      state: installed
+
+  - name: enabled and restarted
+    ansible.builtin.server:
+      name: mysqld
+      enabled: true
+      state: restarted
   
+  - name: set root password
+    ansible.builtin.command: mysql_secure_installation --set-root-pass RoboShop@1
