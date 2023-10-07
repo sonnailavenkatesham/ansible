@@ -56,8 +56,12 @@
 
   - name: daemon-reload
     ansible.builtin.systemd:
-      name: shipping
       daemon_reload: true
+  
+  - name: enable and restart
+    ansible.builtin.service:
+      name: shipping
+      enabled: true
       state: started
 
   - name: install mysql
