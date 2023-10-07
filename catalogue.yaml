@@ -36,14 +36,9 @@
       path: /app
       state: directory
   
-  - name: install catalogue artifact
-    ansible.builtin.get_url:
-      url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
-      dest: /tmp
-  
   - name: Unarchive a file that is already on the remote machine i.e zipfile
     ansible.builtin.unarchive:
-      src: /tmp/catalogue.zip
+      src: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
       dest: /app
       remote_src: yes
 
@@ -59,7 +54,6 @@
 
   - name: Reload service httpd, in all cases
     ansible.builtin.systemd:
-      name: catalogue
       daemon-reload: true
 
   - name: Restart catalogue
@@ -79,7 +73,7 @@
       state: installed
 
   - name: host mongodb
-    ansible.builtin.command: mongo --host mongodb.venkateshamsonnalia143.online < /app/schema/catalogue.js
+    ansible.builtin.shell: mongo --host mongodb.venkateshamsonnalia143.online < /app/schema/catalogue.js
 
     
     
