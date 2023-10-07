@@ -73,7 +73,7 @@
       state: installed
 
   - name: host mongodb
-    ansible.builtin.shell: 'mongo --host mongodb.venkateshamsonnalia143.online < /app/schema/cart.js'
+    ansible.builtin.shell: mongo --host mongodb.venkateshamsonnalia143.online < /app/schema/cart.js
 
     
     
