@@ -34,16 +34,11 @@
     name: create /app directory
     ansible.builtin.file:
       path: /app
-      state: directory 
-  
-  - name: download the artifact
-    ansible.builtin.get_url:
-      url: https://roboshop-builds.s3.amazonaws.com/cart.zip
-      dest: /tmp
+      state: directory
   
   - name: Unarchive a file that needs to be downloaded (added in 2.0)
     ansible.builtin.unarchive:
-      src: /tmp/cart.zip 
+      src: https://roboshop-builds.s3.amazonaws.com/cart.zip 
       dest: /app 
       remote_src: yes
 
@@ -52,9 +47,7 @@
     args:
         chdir: /app
 
-
-
-  - name: copying cart services
+   - name: copying cart services
     ansible.builtin.copy:
       src: cart.service
       dest: /etc/systemd/system/cart.service
