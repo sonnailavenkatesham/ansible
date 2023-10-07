@@ -15,8 +15,8 @@
       name: mysql-community-server -y
       state: installed
 
-  - name: enabled and restarted
-    ansible.builtin.server:
+  - name: enable and restart
+    ansible.builtin.service:
       name: mysqld
       enabled: true
       state: restarted
