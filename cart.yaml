@@ -56,7 +56,7 @@
 
   - name: copying cart services
     ansible.builtin.copy:
-      ser: cart.service
+      src: cart.service
       dest: /etc/systemd/system/cart.service
   
   - name: daemon re-load
