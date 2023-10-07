@@ -70,10 +70,9 @@
       state: installed
 
   - name: host shipiing
-    ansible.builtin.shell: 'mysql -h mysql.venkateshamsonnalia143.online -uroot -pRoboShop@1 < /app/schema/shipping.sql'
+    ansible.builtin.shell: mysql -h mysql.venkateshamsonnalia143.online -uroot -pRoboShop@1 < /app/schema/shipping.sql
 
   - name: enable and restart
     ansible.builtin.service:
       name: shipping
-      enabled: true
       state: restarted
