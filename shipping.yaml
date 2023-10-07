@@ -71,8 +71,8 @@
 
   - name: host shipiing
     ansible.builtin.shell: 
-    cmd: mysql -h mysql.venkateshamsonnalia143.online -uroot -pRoboShop@1
-    chdir: /app/schema/shipping.sql
+      cmd: mysql -h mysql.venkateshamsonnalia143.online -uroot -pRoboShop@1
+      chdir: /app/schema/shipping.sql
 
   - name: enable and restart
     ansible.builtin.service:
