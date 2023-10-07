@@ -1,15 +1,15 @@
 - name: install cart component
-  become: yes
   hosts: cart
+  become: yes
   tasks:
-  - name:  setup NodeJS repos
-    ansible.builtin.shell: 'curl -sL https://rpm.nodesource.com/setup_lts.x | bash'
+  - name: install NPM
+    ansible.builtin.shell: "curl -sL https://rpm.nodesource.com/setup_lts.x | bash"
 
-  - name: install NodeJS
+  - name: install nodejs
     ansible.builtin.yum:
       name: nodejs
       state: installed
-
+  
   - name: check user roboshop exist or not
     ansible.builtin.command: id roboshop
     register: output
@@ -36,34 +36,44 @@
       path: /app
       state: directory
   
-  - name: Unarchive a file that needs to be downloaded (added in 2.0)
+  - name: Unarchive a file that is already on the remote machine i.e zipfile
     ansible.builtin.unarchive:
-      src: https://roboshop-builds.s3.amazonaws.com/cart.zip 
-      dest: /app 
+      src: https://roboshop-builds.s3.amazonaws.com/cart.zip
+      dest: /app
       remote_src: yes
 
-  - name: NPM setup
+  - name: install npm dependencies
     ansible.builtin.command: npm install
     args:
-        chdir: /app
+      chdir: /app
 
-  - name: copying cart services
+  - name: copy the cart conf
     ansible.builtin.copy:
       src: cart.service
       dest: /etc/systemd/system/cart.service
-  
-  - name: daemon re-load
+
+  - name: Reload service httpd, in all cases
     ansible.builtin.systemd:
-      name: cart
-      daemon_reload: true
+      daemon-reload: true
 
-  - name: enable and restart
+  - name: Restart cart
     ansible.builtin.service:
-     name: cart
-     state: restarted
-     enabled: true
+      name: cart
+      enabled: true
+      state: started
+  
+  - name: copy mongo.repo
+    ansible.builtin.copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+      
+  - name: install mongodb
+    ansible.builtin.yum:
+      name: mongodb-org-shell
+      state: installed
 
+  - name: host mongodb
+    ansible.builtin.shell: mongo --host mongodb.venkateshamsonnalia143.online < /app/schema/cart.js
 
-
-   
+    
     
